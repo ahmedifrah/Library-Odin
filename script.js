@@ -41,6 +41,7 @@ function displayBooks(library){
     library.forEach(book => {
         var card = document.createElement('div')
         card.classList.add('card')
+        card.dataset.index = myLibrary.indexOf(book)
 
         var titleInParagraph = document.createElement('p')
         titleInParagraph.innerHTML = book.title
@@ -58,9 +59,26 @@ function displayBooks(library){
         readParagprah.innerHTML = book.read
         readParagprah.style.backgroundColor = readParagprah.innerHTML == "Read" ? "Green" : "Red"
         toggleRead(readParagprah)
-
         card.appendChild(readParagprah)
+
+        var removeBookBtn = document.createElement('button')
+        removeBookBtn.innerHTML = "Remove"
+        removeBook(removeBookBtn, card)
+        card.appendChild(removeBookBtn)
+
+
         cardWrapper.appendChild(card)
+
+    });
+}
+
+
+function removeBook(removeButton, card){
+    removeButton.addEventListener('click', function(){
+        var id = card.dataset.index
+        myLibrary.splice(id, 1)
+        displayBooks(myLibrary)
+
 
     });
 }
@@ -87,4 +105,5 @@ function Book (title, author, pages, read)
         return `${this.title} by ${this.author}. ${this.pages}, ${read}`
     };
 }
+
 
