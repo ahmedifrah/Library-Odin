@@ -6,6 +6,7 @@ var titleInput = document.getElementById('title')
 var authorInput = document.getElementById('author')
 var pagesInput = document.getElementById('pages')
 var readCheckbox = document.getElementById('read')
+var cardWrapper = document.getElementById('cardwrapper')
 
 logBookBtn.addEventListener('click', function(){
     formModal.showModal()
@@ -17,6 +18,7 @@ saveBookBtn.addEventListener('click', function(e){
     console.log(myLibrary)
     form.reset()
     formModal.close()
+    displayBooks(myLibrary)
 
 });
 
@@ -34,6 +36,42 @@ function addBookToLibrary (){
     myLibrary.push(newBook)
 }
 
+function displayBooks(library){
+    cardWrapper.innerHTML = ' '
+    library.forEach(book => {
+        var card = document.createElement('div')
+        card.classList.add('card')
+        var titleInParagraph = document.createElement('p')
+        titleInParagraph.innerHTML = book.title
+        card.appendChild(titleInParagraph)
+        var authorParagprah = document.createElement('p')
+        authorParagprah.innerHTML = book.author
+        card.appendChild(authorParagprah)
+        var pagesParagraph = document.createElement('p')
+        pagesParagraph.innerHTML = book.pages
+        card.appendChild(pagesParagraph)
+        var readParagprah = document.createElement('button')
+        readParagprah.innerHTML = book.read
+        readParagprah.style.backgroundColor = readParagprah.innerHTML == "Read" ? "Green" : "Red"
+        toggleRead(readParagprah)
+        card.appendChild(readParagprah)
+        cardWrapper.appendChild(card)
+
+    });
+}
+
+function toggleRead(readButton){
+    readButton.addEventListener('click', function(){
+        if (readButton.innerHTML == "Read"){
+            readButton.style.backgroundColor = "Red"
+            readButton.innerHTML = "Not Red"
+        }else{
+            readButton.style.backgroundColor = "Green"
+            readButton.innerHTML = "Read"
+        }
+    });
+}
+
 function Book (title, author, pages, read)
 {
     this.title = title;
@@ -44,3 +82,4 @@ function Book (title, author, pages, read)
         return `${this.title} by ${this.author}. ${this.pages}, ${read}`
     };
 }
+

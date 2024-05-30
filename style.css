@@ -22,5 +22,20 @@ main {
 form {
     display: flex;
     flex-direction: column;
-    
+}
+
+#cardWrapper {
+    display: flex;
+    margin: 25px;
+}
+
+.card {
+    background-color: peachpuff;
+    margin: 1.3rem;
+    padding: 1.2rem;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
